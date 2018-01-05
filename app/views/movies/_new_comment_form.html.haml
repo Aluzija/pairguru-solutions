@@ -1,0 +1,6 @@
+%h3 What do you think about #{movie.title}?
+= form_for [movie, comment], url: movie_comments_path(movie) do |f|
+  .form-group
+    =f.text_area :text, size: "60x6"
+  .actions.pull-left
+    =f.submit "comment", class: 'btn btn-default'

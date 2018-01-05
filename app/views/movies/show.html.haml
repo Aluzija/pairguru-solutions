@@ -3,3 +3,19 @@
   = @movie.description
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+  - if @commenting_permitted
+    = render 'new_comment_form', comment: @comment, movie: @movie
+  - else
+    %p
+      You can give only one comment to each movie.
+      If you want to comment again you must delete the previous one.
+- else
+  %p If you want to leave a coomment please #{link_to 'Login', new_user_session_path}
+%br/
+= render 'comments_list', movie: @movie, comments: @comments if @comments.any?
+
+-# In 16 line I could type only: "= render 'comments_list'" without
+-# transfering the variables provided that I afterwards use "@movie" and
+-# "@comments" inside the partial. I transfered them explicitly because it
+-# was done this way in a frangment of code not belonging to mine. I wanted
+-# to keep pattern already existing in the project.

@@ -7,6 +7,9 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
+    @comment = Comment.new
+    @comments = @movie.comments
+    current_user.comments.where(movie_id: @movie.id).empty? ? @commenting_permitted = true : @commenting_permitted = false
   end
 
   def send_info
