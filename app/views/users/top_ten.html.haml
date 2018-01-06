@@ -1,0 +1,17 @@
+.jumbotron
+  .row
+    .col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2
+      %h1.text-center Top 10 users
+      %br/
+      %table.table.table-striped.text-center
+        %thead
+          %tr
+            %th.text-center.col-sm-2 Lp
+            %th.text-center.col-sm-6 Name
+            %th.text-center.col-sm-4 Number of comments in last 7 days
+        %tbody
+        - @users.each_with_index do |user, i|
+          %tr
+            %td= i + 1
+            %td= user.name
+            %td= user.comments_count

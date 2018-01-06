@@ -16,4 +16,9 @@ Rails.application.routes.draw do
       get :export
     end
   end
+  resource :users, only: :none do
+    member do
+      get "top_ten"
+    end
+  end
 end
