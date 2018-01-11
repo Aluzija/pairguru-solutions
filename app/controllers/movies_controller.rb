@@ -2,14 +2,19 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:send_info]
 
   def index
-    @movies = Movie.all.decorate
+    @movies = Movie.includes(:genre)
+    @api = API::PairguruApiController.new
   end
 
   def show
     @movie = Movie.find(params[:id])
+    @title = @movie.title.split.join("%20")
     @comment = Comment.new
     @comments = @movie.comments
-    current_user.comments.where(movie_id: @movie.id).empty? ? @commenting_permitted = true : @commenting_permitted = false
+    @api = API::PairguruApiController.new
+    if current_user
+      current_user.comments.where(movie_id: @movie.id).empty? ? @commenting_permitted = true : @commenting_permitted = false
+    end
   end
 
   def send_info
